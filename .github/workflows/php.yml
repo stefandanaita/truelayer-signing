@@ -56,6 +56,8 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
+        with:
+          path: "truelayer-signing"
       - name: "Download Splitsh Lite binary"
         run: |
           mkdir -p $GITHUB_WORKSPACE/bin
@@ -67,8 +69,8 @@ jobs:
         run: git remote add php git@github.com:stefandanaita/truelayer-signing-php.git
       - name: "Split the php directory"
         run: |
-          ls -lah bin
-          $GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --scratch
+          ls -lah
+          $GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --path=$GITHUB_WORKSPACE/truelayer-signing
           # SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --quiet`
           # git push php "$SHA1:refs/heads/main" -f
 
