@@ -70,7 +70,7 @@ jobs:
           rm $GITHUB_WORKSPACE/bin/lite_linux_amd64.tar.gz
           chmod +x $GITHUB_WORKSPACE/bin/splitsh-lite
       - name: "Add readonly repository remote"
-        run: git remote add php git@github.com:stefandanaita/truelayer-signing-php.git
+        run: git remote add php https://github.com/stefandanaita/truelayer-signing-php
       - name: "Split the php directory"
         run: |
           SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php`
