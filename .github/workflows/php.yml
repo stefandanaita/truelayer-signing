@@ -61,6 +61,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: "truelayer-signing"
+          fetch-depth: 0
       - name: "Download Splitsh Lite binary"
         run: |
           mkdir -p $GITHUB_WORKSPACE/bin
