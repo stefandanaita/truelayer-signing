@@ -1,0 +1,78 @@
+name: PHP
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "php"
+    strategy:
+      matrix:
+        dependencies:
+          - "lowest"
+          - "highest"
+        php-version:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+        env:
+          update: true
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.composer/cache
+            php/vendor
+          key: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+          restore-keys: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+      - name: "Install lowest dependencies"
+        if: ${{ matrix.dependencies == 'lowest' }}
+        run: "composer update --prefer-lowest --no-interaction --no-progress"
+      - name: "Install highest dependencies"
+        if: ${{ matrix.dependencies == 'highest' }}
+        run: "composer update --no-interaction --no-progress"
+      - name: "PHPStan"
+        run: "vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=-1"
+      - name: "Tests"
+        run: "vendor/bin/pest"
+
+  split:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "truelayer-signing"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          path: "truelayer-signing"
+      - name: "Download Splitsh Lite binary"
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bin
+          wget https://github.com/splitsh/lite/releases/download/v1.0.1/lite_linux_amd64.tar.gz -P $GITHUB_WORKSPACE/bin
+          tar -zxpf $GITHUB_WORKSPACE/bin/lite_linux_amd64.tar.gz --directory $GITHUB_WORKSPACE/bin
+          rm $GITHUB_WORKSPACE/bin/lite_linux_amd64.tar.gz
+          chmod +x $GITHUB_WORKSPACE/bin/splitsh-lite
+      - name: "Add readonly repository remote"
+        run: git remote add php git@github.com:stefandanaita/truelayer-signing-php.git
+      - name: "Split the php directory"
+        run: |
+          echo `$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php`
+          # SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --quiet`
+          # git push php "$SHA1:refs/heads/main" -f
+
