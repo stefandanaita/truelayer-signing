@@ -68,6 +68,7 @@ jobs:
       - name: "Split the php directory"
         run: |
           ls -lah
-          SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --quiet`
-          git push php "$SHA1:refs/heads/main" -f
+          $GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --path=./
+          # SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --quiet`
+          # git push php "$SHA1:refs/heads/main" -f
 
