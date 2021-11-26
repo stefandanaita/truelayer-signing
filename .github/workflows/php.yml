@@ -72,8 +72,7 @@ jobs:
         run: git remote add php git@github.com:stefandanaita/truelayer-signing-php.git
       - name: "Split the php directory"
         run: |
-          ls -lah $GITHUB_WORKSPACE
-          $GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --path=$GITHUB_WORKSPACE/truelayer-signing
+          $GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php
           # SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --quiet`
           # git push php "$SHA1:refs/heads/main" -f
 
