@@ -73,6 +73,6 @@ jobs:
       - name: "Split the php directory"
         run: |
           # echo `$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php`
-          SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php`
+          SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php --origin=origin/main`
           git push php "$SHA1:refs/heads/main" -f
 
