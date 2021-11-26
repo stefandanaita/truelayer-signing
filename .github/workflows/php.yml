@@ -53,9 +53,9 @@ jobs:
 
   split:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "truelayer-signing"
+    # defaults:
+      # run:
+        work/ing-directory: "truelayer-signing"
     steps:
       # - name: "Checkout"
       #   uses: actions/checkout@v2
@@ -63,8 +63,8 @@ jobs:
       #     path: "truelayer-signing"
       - name: "Clone"
         run: |
-          mkdir -p $GITHUB_WORKSPACE/truelayer-signing
-          git clone git@github.com:stefandanaita/truelayer-signing.git $GITHUB_WORKSPACE/truelayer-signing
+          mkdir -p $GITHUB_WORKSPACE/repo
+          git clone git@github.com:stefandanaita/truelayer-signing.git $GITHUB_WORKSPACE/repo
       - name: "Download Splitsh Lite binary"
         run: |
           mkdir -p $GITHUB_WORKSPACE/bin
@@ -77,7 +77,7 @@ jobs:
       - name: "Split the php directory"
         run: |
           git status
-          echo `$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php`
+          echo `$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/repo --prefix=php`
           # SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --prefix=php --quiet`
           # git push php "$SHA1:refs/heads/main" -f
 
