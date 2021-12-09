@@ -55,8 +55,9 @@ jobs:
 
   sync:
     runs-on: ubuntu-latest
-    name: Update downstream repository
+    name: Update downstream repository branches
     needs: test
+    if: ${{ github.event_name != 'pull_request' }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -72,7 +73,7 @@ jobs:
 
   sync-tags:
     runs-on: ubuntu-latest
-    name: Update downstream repository
+    name: Update downstream repository tags
     needs: test
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
