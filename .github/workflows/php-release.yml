@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Echo
+        run: echo ${GITHUB_REF##*/}
       - uses: nxtlvlsoftware/git-subtree-action@1.1
         with:
           repo: 'stefandanaita/truelayer-signing-php'
