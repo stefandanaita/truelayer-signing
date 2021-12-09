@@ -70,7 +70,7 @@ jobs:
           path: "php"
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
           force: true
-          branch: ${{ GITHUB_REF##*/ }}
+          branch: ${{ basename "${GITHUB_REF}" }}
 
   # sync-tags:
   #   runs-on: ubuntu-latest
