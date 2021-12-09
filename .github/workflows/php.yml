@@ -61,7 +61,7 @@ jobs:
           fetch-depth: 0
       - name: Echo
         run: echo ${GITHUB_REF##*/}
-      - uses: stefandanaita/git-subtree-action
+      - uses: stefandanaita/git-subtree-action@master
         with:
           repo: 'stefandanaita/truelayer-signing-php'
           path: 'php'
