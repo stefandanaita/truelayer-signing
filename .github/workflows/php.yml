@@ -3,7 +3,7 @@ name: PHP
 on:
   push:
     branches: [ main ]
-    tags: "php/*"
+    tags: "php/v**"
   pull_request:
     branches: [ main ]
 
