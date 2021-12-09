@@ -56,7 +56,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     name: Sync downstream repository main branch
-    needs: test
+    # needs: test
     if: ${{ github.event_name != 'pull_request' }}
     steps:
       - uses: actions/checkout@v2
@@ -70,6 +70,7 @@ jobs:
           path: "php"
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
           force: true
+          branch: ${GITHUB_REF##*/}
 
   # sync-tags:
   #   runs-on: ubuntu-latest
