@@ -1,4 +1,4 @@
-# truelayer-signing
+## truelayer-signing
 Convenient libraries to produce TrueLayer API requests signatures.
 
 Request signatures are created using a private key and included with certain API requests.
