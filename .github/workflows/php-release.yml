@@ -1,0 +1,22 @@
+name: PHP Release
+
+on:
+  push:
+    tags: '*'
+
+jobs:
+  sync-tag:
+    runs-on: ubuntu-latest
+    name: Update downstream repository
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: nxtlvlsoftware/git-subtree-action@1.1
+        with:
+          repo: 'stefandanaita/truelayer-signing-php'
+          path: 'php'
+          deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
+          tag: ${GITHUB_REF##*/}
+          force: true
+          branch: 'main'
