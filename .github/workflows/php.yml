@@ -55,7 +55,7 @@ jobs:
 
   sync:
     runs-on: ubuntu-latest
-    name: Sync downstream repository main branch
+    name: Sync changes to the read-only repository
     # needs: test
     if: ${{ github.event_name != 'pull_request' }}
     steps:
@@ -70,25 +70,4 @@ jobs:
           path: "php"
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
           force: true
-          branch: ${{ basename "${GITHUB_REF}" }}
-
-  # sync-tags:
-  #   runs-on: ubuntu-latest
-  #   name: Update downstream repository tags
-  #   needs: test
-  #   # if: startsWith(github.ref, 'refs/tags/php/v')
-  #   if: ${{ github.event_name != 'pull_request' }}
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Echo
-  #       run: echo ${GITHUB_REF##*/}
-  #     - uses: stefandanaita/git-subtree-action@dev
-  #       with:
-  #         repo: "stefandanaita/truelayer-signing-php"
-  #         path: "php"
-  #         deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
-  #         tag: ${GITHUB_REF##*/}
-  #         force: true
-  #         branch: "main"
+          branch: ${GITHUB_REF##*/}
