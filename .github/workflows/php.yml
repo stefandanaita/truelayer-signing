@@ -64,6 +64,5 @@ jobs:
           repo: 'stefandanaita/truelayer-signing-php'
           path: 'php'
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
-          tag: true
           force: true
           branch: 'main'
