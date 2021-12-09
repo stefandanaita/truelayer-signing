@@ -67,28 +67,4 @@ jobs:
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
           tag: true
           force: true
-  # split:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: "truelayer-signing"
-  #   steps:
-  #     - name: "Checkout"
-  #       uses: actions/checkout@v2
-  #       with:
-  #         path: "truelayer-signing"
-  #         fetch-depth: 0
-  #     - name: "Download Splitsh Lite binary"
-  #       run: |
-  #         mkdir -p $GITHUB_WORKSPACE/bin
-  #         wget https://github.com/splitsh/lite/releases/download/v1.0.1/lite_linux_amd64.tar.gz -P $GITHUB_WORKSPACE/bin
-  #         tar -zxpf $GITHUB_WORKSPACE/bin/lite_linux_amd64.tar.gz --directory $GITHUB_WORKSPACE/bin
-  #         rm $GITHUB_WORKSPACE/bin/lite_linux_amd64.tar.gz
-  #         chmod +x $GITHUB_WORKSPACE/bin/splitsh-lite
-  #     - name: "Add readonly repository remote"
-  #       run: git remote add php https://github.com/stefandanaita/truelayer-signing-php
-  #     - name: "Split the php directory"
-  #       run: |
-  #         SHA1=`$GITHUB_WORKSPACE/bin/splitsh-lite --path=$GITHUB_WORKSPACE/truelayer-signing --prefix=php`
-  #         git push php "$SHA1:refs/heads/main" -f
-
+          branch: 'main'
