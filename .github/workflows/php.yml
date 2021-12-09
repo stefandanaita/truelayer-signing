@@ -67,7 +67,7 @@ jobs:
         run: |
           TAG=${GITHUB_REF//tags\/php\//tags\/}
           echo "::set-output name=NEW_TAG::$TAG"
-      - uses: stefandanaita/git-subtree-action@dev
+      - uses: stefandanaita/git-subtree-action@1.2.0
         with:
           repo: "stefandanaita/truelayer-signing-php"
           path: "php"
