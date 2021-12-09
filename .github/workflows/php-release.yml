@@ -21,4 +21,3 @@ jobs:
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
           tag: ${GITHUB_REF##*/}
           force: true
-          branch: 'main'
